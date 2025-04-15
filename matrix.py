@@ -74,8 +74,8 @@ class Matrix:
     def __getitem__(self, iRowIndex: int) -> list[int]:
         return self.lliValues[iRowIndex]
 
-    def __setitem__(self, iRowIndex: int, iColumnIndex: int, iValue: int) -> None:
-        self.lliValues[iRowIndex][iColumnIndex] = iValue
+    def __setitem__(self, iRowIndex: int, iValue: float) -> None:
+        self.lliValues[iRowIndex] = iValue
 
     def __add__(self, other: Matrix) -> Matrix:
         if (not (self.iRows == other.iRows and self.iColumns == other.iColumns)): raise ValueError
@@ -214,11 +214,10 @@ class Matrix:
         return newMatrix
 
     def T(self) -> Matrix:
-        if (not (self.iRows == self.iColumns)): raise ValueError
         newMatrix: Matrix = Matrix.null(self.iColumns, self.iRows)
-        for iColumnIndex in range(self.iColumns):
-            for iRowIndex in range(self.iRows):
-                newMatrix[iRowIndex][iColumnIndex] = self[iColumnIndex][iRowIndex]
+        for iRowIndex in range(self.iRows):
+            for iColumnIndex in range(self.iColumns):
+                newMatrix[iColumnIndex][iRowIndex] = self[iRowIndex][iColumnIndex]
         return newMatrix
 
     def __bool__(self) -> bool:

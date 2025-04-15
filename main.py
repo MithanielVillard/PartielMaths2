@@ -1,8 +1,9 @@
 from matrix import Matrix
 from vector import Vector
+from shapes import carre_plein, draw
 
 def translate(m: float, f: list[tuple[Vector, Vector]], G: Vector, vG: Vector, h: float) -> tuple[Vector, Vector]:
-    sommesForce: Vector = Vector(0, 0, 0)
+    sommesForce: Vector = Vector([0, 0, 0])
 
     for i in range(len(f)):
         sommesForce += f[i][0]
@@ -37,12 +38,15 @@ cube : Matrix = Matrix([
 cube **= -1
 
 force = [
-    (Vector([0.0, 10.0, 0.0]), Vector([-1.0, -1.0, 0.0])),
+    (Vector([0.0, 10.0, 0.0]), Vector([0.0, 0.0, 0.0])),
 ]
 
 teta : Vector = Vector([0.0, 0.0, 0.0])
 omega : Vector = Vector([0.0, 0.0, 0.0])
 
 for i in range(100):
-    teta, omega = rotation(cube, force, Vector([0.0, 0.0, 0.0]), teta, omega, 0.1)
+    teta, omega = translate(1, force, teta, omega, 0.1)
     print(teta, " omega : ", omega)
+
+draw(carre_plein(40, 1))
+
