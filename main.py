@@ -13,7 +13,7 @@ def translate_points(points, dx=0, dy=0, dz=0):
     return [[x + dx, y + dy, z + dz] for x, y, z in points]
 
 def solide(n):
-    pave = pave_plein(n, 500, 500, 500)
+    pave = pave_plein(n, 10, 10, 10)
     cylindre1 = cylindre_plein(n, 5, 10)
     cylindre2 = cylindre_plein(n, 5, 10)
     cylindre3 = cylindre_plein(n, 5, 10)
