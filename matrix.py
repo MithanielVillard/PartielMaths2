@@ -32,7 +32,6 @@ class Matrix:
                 B.append(C)
         return B
 
-
 def det(matrix : Matrix) -> float:
     j = 0
     d = 0
