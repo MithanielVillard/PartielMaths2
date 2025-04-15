@@ -134,6 +134,15 @@ class Vector:
             if (self.lValues[iIndex] < other.lValues[iIndex]): return False
         return True
 
+    def x(self) -> float:
+        return self.lValues[0]
+
+    def y(self) -> float:
+        return self.lValues[1]
+
+    def z(self) -> float:
+        return self.lValues[2]
+
     def norm(self) -> float:
         return (self * self) ** 0.5
 

@@ -3,10 +3,19 @@ from math import cos, sin
 
 
 class Matrix:
-    def __init__(self, lliValues: list[list[int]]):
-        self.lliValues: list[list[int]] = lliValues
+    def __init__(self, lliValues: list[list[float]]):
+        self.lliValues: list[list[float]] = lliValues
         self.iRows: int = len(lliValues)
         self.iColumns: int = len(lliValues[0])
+
+    @staticmethod
+    def translation(translation : Vector) -> Matrix:
+        return Matrix([
+            [1, 0, 0, translation.x()],
+            [0, 1, 0, translation.y()],
+            [0, 0, 1, translation.z()],
+            [0, 0, 0, 1]
+        ])
 
     @staticmethod
     def null(iRows: int, iColumns: int) -> Matrix:
@@ -20,6 +29,14 @@ class Matrix:
                 if (iRowIndex == iColumn):
                     newMatrix[iRowIndex][iColumn] = 1
         return newMatrix
+
+    @staticmethod
+    def rotation3Bis(angles : Vector) -> Matrix:
+        x : Matrix = Matrix.rotation3(angles.x(), Vector([1, 0, 0]))
+        y : Matrix = Matrix.rotation3(angles.y(), Vector([0, 1, 0]))
+        z : Matrix = Matrix.rotation3(angles.z(), Vector([0, 0, 1]))
+
+        return x * y * z
 
     @staticmethod
     def rotation3(angle: float, unitVector: Vector, ) -> Matrix:
@@ -71,10 +88,10 @@ class Matrix:
                 newMatrix[iRowIndex][iColumnIndex] = self[iRowIndex][iColumnIndex]
         return newMatrix
 
-    def __getitem__(self, iRowIndex: int) -> list[int]:
+    def __getitem__(self, iRowIndex: int) -> list[float]:
         return self.lliValues[iRowIndex]
 
-    def __setitem__(self, iRowIndex: int, iValue: float) -> None:
+    def __setitem__(self, iRowIndex: int, iValue: list[float]) -> None:
         self.lliValues[iRowIndex] = iValue
 
     def __add__(self, other: Matrix) -> Matrix:

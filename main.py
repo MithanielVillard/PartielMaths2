@@ -1,6 +1,9 @@
 from matrix import Matrix
 from vector import Vector
-from shapes import carre_plein, draw
+from shapes import cube, cylindre, draw
+from maths import PI
+
+import matplotlib.pyplot as plt
 
 def translate(m: float, f: list[tuple[Vector, Vector]], G: Vector, vG: Vector, h: float) -> tuple[Vector, Vector]:
     sommesForce: Vector = Vector([0, 0, 0])
@@ -30,23 +33,52 @@ def rotation(I_inv : Matrix, F : list[tuple[Vector, Vector]], G : Vector, teta :
 
     return new_teta, new_omega
 
-cube : Matrix = Matrix([
+def mouvement(W : Matrix, m : float, I : Matrix, F : list[tuple[Vector, Vector]], G : Vector, vG : Vector, teta : Vector, omega : Vector, t : int, n : int):
+
+    temp : Matrix = W
+    step : float = n/t
+
+    G, vG = translate(1, F, G, vG, step)
+    teta, omega = rotation(I**-1, F, G, teta, omega, step)
+
+    for i in range(n):
+        G, vG = translate(1, [(Vector([0,0,0]), Vector([0,0,0]))], Vector.null(3), vG, step)
+
+        transpose : Matrix = temp.T()
+        print(teta)
+
+        for k in range(transpose.iRows):
+            teta, omega = rotation(I ** -1, [(Vector([0,0,0]), Vector([0,0,0]))], Vector(transpose[k]), Vector.null(3), omega, step)
+
+            transpose[k][0] += G.x()
+            transpose[k][1] += G.y()
+            transpose[k][2] += G.z()
+            transpose[k] = (Matrix.rotation3Bis(teta * PI/180) * Vector(transpose[k])).lValues
+            #transpose[k][0], transpose[k][1], transpose[k][2], _ = (Matrix.translation(G) * Vector([*transpose[k], 1.0])).lValues
+            #transpose[k] = [transpose[k][0] + G.x(), transpose[k][1] + G.y(), transpose[k][2] + G.z()]
+
+        temp = transpose.T()
+        draw(temp)
+    plt.show()
+
+cube_ : Matrix = Matrix([
     [1/3, 0, 0],
     [0, 1/3, 0],
     [0, 0, 1/3],
 ])
-cube **= -1
+cube_ **= -1
 
 force = [
-    (Vector([0.0, 10.0, 0.0]), Vector([0.0, 0.0, 0.0])),
+    #(Vector([0.0, 2.0, 0.0]), Vector([0.0, 0.0, 0.0])),
+    #(Vector([1.0, 0.0, 0.0]), Vector([0.0, 0.0, 1.0])),
+    #(Vector([-1.0, 0.0, 0.0]), Vector([0.0, 0.0, -1.0])),
+    (Vector([2.0, 0.0, 0.0]), Vector([0.0, 0.0, -1.0])),
 ]
 
 teta : Vector = Vector([0.0, 0.0, 0.0])
 omega : Vector = Vector([0.0, 0.0, 0.0])
 
-for i in range(100):
-    teta, omega = translate(1, force, teta, omega, 0.1)
-    print(teta, " omega : ", omega)
+g : Vector = Vector([0.0, 0.0, 0.0])
+vG: Vector = Vector([0.0, 0.0, 0.0])
 
-draw(carre_plein(40, 1))
-
+mouvement(cube(64, 100), 1, cube_, force, g, vG, teta, omega, 20, 50)
