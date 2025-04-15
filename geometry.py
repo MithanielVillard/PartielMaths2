@@ -11,7 +11,7 @@ def ligne(n,xmin,xmax):
             W.append([x*dx,0,0])
     else:
         print("n have to be different")
-    return(matrix.transpose(W))
+    return Matrix(W).transpose()
 
 
 def carre_plein(n,a):
@@ -23,19 +23,23 @@ def carre_plein(n,a):
        
     else:
         print("n have to be different")
-    return(matrix.transpose(W))
+    return Matrix(W).transpose()
 
 def pave_plein(n, a, b, c) :
     W=[]
     if n-1 != 0:
-        for z in range (int (n ** 0.5)):
-            for x in range (int(n ** 0.5)):
-                for y in range (int(n ** 0.5)):
-                    W.append([x*a,z*a,y*a])
+        res_r = int(n ** (1/3))
+        res_a = int(n ** (1/3))
+        res_h = int(n ** (1/3))
+        for z in range (res_r):
+            for x in range (res_a):
+                for y in range (res_h):
+                    W.append([x*a,z*b,y*c])
        
     else:
         print("n have to be different")
-    return(matrix.transpose(W))
+
+    return Matrix(W).transpose()
 
 def cercle_plein(n, R):
     if n <= 1:
@@ -56,33 +60,29 @@ def cercle_plein(n, R):
             z = 0
 
             W.append([x, y, z])
-    return transpose(W)
+    return Matrix(W).transpose()
     
 def cylindre_plein(n, R, h):
-    if n <= 1:
-        print("n must be greater than 1.")
-        return None
-    if h == 0:
-        print("h must not be equal to 0.")
-        return None
-
     W = []
-    rayon_step = R / n
-    angle_step = 2 * maths.PI / n
-    hauteur_step = h / n
 
-    for u in range(h):
-        for i in range(n):
-            for j in range(n):
+    res_r = int(n ** (1/3))
+    res_a = int(n ** (1/3))
+    res_h = int(n ** (1/3))
+
+    rayon_step = R / res_r
+    angle_step = 2 * maths.PI / res_a
+    hauteur_step = h / res_h
+
+    for u in range(res_h):
+        for i in range(res_r):
+            for j in range(res_a):
                 rayon = i * rayon_step
                 angle = j * angle_step
                 hauteur = u * hauteur_step
 
-                x = rayon * cos(angle)
-                y = rayon * sin(angle)
+                x = rayon * maths.cos(angle)
+                y = rayon * maths.sin(angle)
                 z = hauteur
 
                 W.append([x, y, z])
-
-    m = Matrix(W)
-    return m.transpose()
+    return Matrix(W).transpose()

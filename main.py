@@ -9,38 +9,37 @@ from math import *
 
 #plt.rcParams['axes3d.mouserotationstyle'] = 'azel'
 
-X = [[-1,2],
-    [0 ,1],
-    [3 ,4]]
+def translate_points(points, dx=0, dy=0, dz=0):
+    return [[x + dx, y + dy, z + dz] for x, y, z in points]
 
-result = [[0,0,0],
-         [0,0,0]]
+def solide(n):
+    pave = pave_plein(n, 500, 500, 500)
+    cylindre1 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dx=20)
+    cylindre2 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dx=-20)
+    cylindre3 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dz=20)
+    cylindre4 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dz=-20)
+
+    all_points = pave + cylindre1 + cylindre2 + cylindre3 + cylindre4
+    return all_points
+    
+def afficher_solide_3d(points):
+    fig = plt.figure(figsize=(12, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    x = [p[0] for p in points]
+    y = [p[1] for p in points]
+    z = [p[2] for p in points]
+    ax.scatter(x, y, z, c='b', s=1500)
+
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_box_aspect([1, 1, 1])
+    ax.set_title(f'Solide 3D ({len(points)} points)')
+    plt.tight_layout()
+    plt.show()
+
+points = solide(500)
+afficher_solide_3d(points)
 
 
-
-
-A = [1,3]
-
-#(X,Y,Z)=ligne(20,-5,5)
-#(X,Y,Z)=carre_plein(10000,60)
-# (X,Y,Z)=pave_plein(2000, 60, 60, 60)
-#(X,Y,Z)=cercle_plein(300,5)
-
-(X,Y,Z)=geo.cylindre_plein(20, 5, 10)
-fig = plt.figure()
-ax = plt.axes(projection='3d')
-ax.scatter3D(X, Y, Z, c=Z, cmap='ocean')
-plt.ylabel('Oskour Studio')
-plt.show()
-
-# print(factoriel(6))
-# print(sin(1/2))
-
-# print(X)
-# transpose(X)
-# print(result)
-# result = ligne(2, 10, 20)
-# plt.plot(result)
-# plt.show()
-
-print("Hello World")
