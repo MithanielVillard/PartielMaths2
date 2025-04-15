@@ -42,3 +42,50 @@ def det(matrix : Matrix) -> float:
         for i in range(len(matrix.matrix)):
             d += (-1) ** (i + j) * matrix[i][j] * det(matrix.pop(i, j))
         return d
+    
+
+#Added----------------------------
+def com(A):
+    B = []
+    n = len(A)
+    for i in range(n):
+        C = []
+        for j in range(n):
+            C.append((-1)**(i+j)* det(pop(A,i,j)))
+        B.append(C)
+
+    return B
+
+def prodScalMat(A,k):
+    n = len(A)
+    B = []
+    for i in range (n):
+        C = []
+        for j in range (n):
+            C.append(A[i][j] * k)
+        B.append(C)
+    
+    return B
+
+def prodMatMat(A, B):
+    C = []
+    n1 = len(A[1])
+    n2 = len(B[0])
+    if n1[1] == n2[0]:
+        for i in range(n1):
+            D = []
+            for j in range(n2):
+                D.append(A[i][j] * B[j][i])
+            C.append(D)
+
+    return C
+
+def inverse(A):
+    return 1 / det(A)*transpose(com(A))
+
+def printMatrix(X):
+    for i in range(len(X)):
+        for j in range(len(X[0])):
+            print(result[j][i])
+
+#Add Finished----------------------------
