@@ -33,6 +33,11 @@ class Vector:
     def dot(self, other : Vector) -> float:
         return self.x * other.x + self.y * other.y + self.z * other.z
 
+    def cross(self, other : Vector) -> Vector:
+        return Vector(self.y * other.z - self.z * other.y,
+                      self.z * other.x - self.x * other.z,
+                      self.x * other.y - self.y * other.x)
+
     def __str__(self):
         print("x :", self.x, " y :", self.y, " z : ", self.z)
     
