@@ -86,51 +86,6 @@ def transpose_matrix(matrix):
             new_row.append(matrix[i][j])
         transposed.append(new_row)
     return transposed
-
-
-def cercle_plein(n, R):
-    W = []
-    steps = int(n**0.5)
-    for i in range(steps):
-        for j in range(steps):
-            r = (i / steps) * R
-            theta = (j / steps) * 2 * PI
-            x = r * cosinus(theta, 10)
-            y = r * sinus(theta, 10)
-            W.append([x, y, 0])
-    return transpose_matrix(W)
-
-def createSphere(n, radius):
-    points = []
-    stacks = int(n**0.5)
-    slices = int(n**0.5)
-
-    for i in range(stacks + 1):
-        phi = PI * i / stacks
-        for j in range(slices):
-            theta = 2 * PI * j / slices
-            x = radius * sinus(phi, 10) * cosinus(theta, 10)
-            y = radius * sinus(phi, 10) * sinus(theta, 10)
-            z = radius * cosinus(phi, 10)
-            points.append([x, y, z])
-
-    return transpose_matrix(points)
-
-def createCylinder(n, radius, height):
-    points = []
-    angle_steps = int(n**0.5)
-    height_steps = int(n**0.5)
-
-    for i in range(angle_steps):
-        theta = (i / angle_steps) * 2 * PI
-        x = radius * cosinus(theta, 10)
-        y = radius * sinus(theta, 10)
-
-        for j in range(height_steps):
-            z = (j / (height_steps - 1)) * height - height / 2
-            points.append([x, y, z])
-    
-    return transpose_matrix(points)
         
 
 def translation(X, Y, Z, moveX, moveY, moveZ):
@@ -244,7 +199,6 @@ def main():
     Roue1X, Roue1Y, Roue1Z = roue1.CreateCylinder(n=100)
     Roue2X, Roue2Y, Roue2Z = roue2.CreateCylinder(n=100)
 
-    barreDuMillieu.rotationMatrix.rotateRight()
     barreDuMillieuX, barreDuMillieuY, barreDuMillieuZ = barreDuMillieu.CreateCylinder(n=100)
     barreDuMillieuY, barreDuMillieuZ = rotateX(barreDuMillieuY, barreDuMillieuZ, PI/2)
 

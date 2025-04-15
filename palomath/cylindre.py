@@ -19,9 +19,7 @@ class Cylindre:
         self.mass: float = mass
 
         rayon: float = scale.x() * 0.5
-        hauteur: float = scale.y()    
-
-        volume: float = PI * rayon**2 * hauteur
+        hauteur: float = scale.y()
 
         self.inertiaMatrix: Matrix = Matrix.identity( 3 )
 
