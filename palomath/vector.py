@@ -30,6 +30,10 @@ class Vector:
     def __getitem__( self, iIndex: int ) -> float:
         return self.lValues[ iIndex ]
     
+    def x( self ) -> float: return self.lValues[0]
+    def y( self ) -> float: return self.lValues[1]
+    def z( self ) -> float: return self.lValues[2]
+    
     def __setitem__( self, iIndex: int, iValue: float ):
         self.lValues[ iIndex ] = iValue
     

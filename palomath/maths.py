@@ -25,3 +25,23 @@ def sin( x: float, order: int = 30 ) -> float:
 
 def df_frontward(i, ip1, h):
     return (ip1 - i)/h
+
+
+# I = [ [  A, -F, -E ],
+#       [ -F,  B, -D ],
+#       [ -E, -D,  C ] ]
+# 
+# A = f( y² + z² )dm
+# B = f( x² + z² )dm
+# C = f( x² + y² )dm
+# D = f(yz)dm
+# E = f(xz)dm
+# F = f(xy)dm
+# 
+# Oxy : D = E = 0
+# Oxz : D = F = 0
+# Oyz : E = F = 0
+# 
+# Ox : B = C
+# Oy : A = C
+# Oz : A = B
