@@ -14,12 +14,12 @@ def translate_points(points, dx=0, dy=0, dz=0):
 
 def solide(n):
     pave = pave_plein(n, 500, 500, 500)
-    cylindre1 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dx=20)
-    cylindre2 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dx=-20)
-    cylindre3 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dz=20)
-    cylindre4 = translate_points(list(zip(*cylindre_plein(n, 5, 10))), dz=-20)
+    cylindre1 = cylindre_plein(n, 5, 10)
+    cylindre2 = cylindre_plein(n, 5, 10)
+    cylindre3 = cylindre_plein(n, 5, 10)
+    cylindre4 = cylindre_plein(n, 5, 10)
 
-    all_points = pave + cylindre1 + cylindre2 + cylindre3 + cylindre4
+    all_points = [*zip(*pave), *zip(*cylindre1), *zip(*cylindre2), *zip(*cylindre3), *zip(*cylindre4)]
     return all_points
     
 def afficher_solide_3d(points):

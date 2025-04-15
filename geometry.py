@@ -65,17 +65,14 @@ def cercle_plein(n, R):
 def cylindre_plein(n, R, h):
     W = []
 
-    res_r = int(n ** (1/3))
-    res_a = int(n ** (1/3))
-    res_h = int(n ** (1/3))
+    res = int(n ** (1/3))
+    rayon_step = R / res
+    angle_step = 2 * maths.PI / res
+    hauteur_step = h / res
 
-    rayon_step = R / res_r
-    angle_step = 2 * maths.PI / res_a
-    hauteur_step = h / res_h
-
-    for u in range(res_h):
-        for i in range(res_r):
-            for j in range(res_a):
+    for u in range(res):
+        for i in range(res):
+            for j in range(res):
                 rayon = i * rayon_step
                 angle = j * angle_step
                 hauteur = u * hauteur_step
