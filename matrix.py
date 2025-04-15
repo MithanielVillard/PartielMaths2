@@ -1,11 +1,9 @@
 from __future__ import annotations
 
 class Matrix:
-     
-    def __init__(self, size : int):
-        self.matrix = [[0 for _ in range(size)] for _ in range(size)]
-        self.size = size
-
+    def __init__(self, data: list[list[float]]):
+        self.matrix = data
+        self.size = len(data)
     def __getitem__(self, i: int) -> list[float]:
         return self.matrix[i]
     
