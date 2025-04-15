@@ -1,6 +1,48 @@
 import math
 import matplotlib.pyplot as plt
 
+def calcul_centre_gravite(points, masses_volumiques):
+    masse_totale = 0
+    mx, my, mz = 0, 0, 0
+    
+    # 1. Cube 
+    masse_cube = masses_volumiques[0] 
+    for i in range(8):
+        mx += points[i][0] * masse_cube/8
+        my += points[i][1] * masse_cube/8
+        mz += points[i][2] * masse_cube/8
+    masse_totale += masse_cube
+    
+    # 2. Rectangle (8 points suivants)
+    masse_rect = masses_volumiques[1]   
+    for i in range(8,16):
+        mx += points[i][0] * masse_rect/8
+        my += points[i][1] * masse_rect/8
+        mz += points[i][2] * masse_rect/8
+    masse_totale += masse_rect
+    
+    # 3. Triangle
+    masse_triangle = masse_cube/2
+    for i in range(16,22):
+        mx += points[i][0] * masse_triangle/6
+        my += points[i][1] * masse_triangle/6
+        mz += points[i][2] * masse_triangle/6
+    masse_totale += masse_triangle
+    
+    # 3. Cylindre
+    masse_cylindre = masses_volumiques[2] 
+    for i in range(22,102):
+        mx += points[i][0] * masse_cylindre/80
+        my += points[i][1] * masse_cylindre/80
+        mz += points[i][2] * masse_cylindre/80
+    masse_totale += masse_cylindre
+    
+    
+    # Calcul final du CDG
+    cdg = [mx/masse_totale, my/masse_totale, mz/masse_totale]
+    return cdg, masse_totale
+
+
 def déplace_mat(I, m, G, A):
 
 # Calcul du vecteur AG = G - A
@@ -159,6 +201,8 @@ def afficher_solide_3d(points):
 
 
 points = solide(102)
+masses_volumiques = [1.2, 0.8, 0.5, 0.3, 0.3, 0.3, 0.3]
 afficher_solide_3d(points)
-test = déplace_mat(points, 1.5, [1.0, 1.0, 1.0], [0.5, 0.5, 0.5])
+cdg, masse_totale = calcul_centre_gravite(points, masses_volumiques)
+test = déplace_mat(points, 1.5, masses_volumiques, cdg)
 
