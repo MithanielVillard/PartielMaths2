@@ -36,7 +36,7 @@ def cylindre(n, r, h):
 
 
 fig = plt.figure()
-plt.rcParams['axes3d.mouserotationstyle'] = 'azel'
+# plt.rcParams['axes3d.mouserotationstyle'] = 'azel'
 ax = plt.axes(projection='3d')
 
 def draw(points : Matrix):
