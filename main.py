@@ -1,6 +1,6 @@
 from matrix import Matrix
 from vector import Vector
-from shapes import cube, cylindre, triangle, draw
+from shapes import cube, cylindre, triangle, geo, draw
 from maths import PI
 
 import matplotlib.pyplot as plt
@@ -83,5 +83,5 @@ vG: Vector = Vector([0.0, 0.0, 0.0])
 
 #mouvement(cube(64, 100), 1, cube_, force, g, vG, teta, omega, 20, 50)
 
-draw(triangle(500, 50))
+draw(geo())
 plt.show()
