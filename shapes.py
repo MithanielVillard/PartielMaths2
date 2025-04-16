@@ -16,24 +16,45 @@ def cube(n, a):
 
     return w.T()
 
-def cylindre(n, r, h):
+
+def cylindre(n: int, r, H):
+    totalPoints: int = int(n ** (1 / 3))
+
     w : Matrix = Matrix.null(n, 3)
+    theta = 360 / totalPoints
+    thetaR = r / (totalPoints - 1)
+
     k : int = 0
 
-    theta = 360 / n
-    thetaR = r / n
-
-    R = 0
-    for j in range(n):
-        for i in range(n):
-            x = R * cos(theta * i * PI / 180)
-            y = R * sin(theta * i * PI / 180)
-            z = 0
-            w[k] = [x, y , z]
-        R += thetaR
+    for h in range(totalPoints):
+        for j in range(totalPoints):
+            for i in range(totalPoints):
+                x = thetaR * j * cos(theta * i * PI / 180)
+                y = thetaR * j * sin(theta * i * PI / 180)
+                z = h * H / (totalPoints - 1)
+                w[k] = [x, y , z]
+                k += 1
 
     return w.T()
 
+def triangle(n, c):
+    totalPoints: int = int(n ** (1 / 3))
+    W : Matrix = Matrix.null(n, 3)
+    k : int = 0
+
+    for z in range(totalPoints):
+        for y in range(totalPoints):
+            for x in range(totalPoints):
+
+                u = x / (totalPoints - 1) * c
+                v = y / (totalPoints - 1)
+
+                dx = c / (totalPoints - 1)
+                dy = u / c * c
+
+                W[k] = [x * dx - c/2, dy * v - c/2, z * dx - c/2]
+                k += 1
+    return W.T()
 
 fig = plt.figure()
 plt.rcParams['axes3d.mouserotationstyle'] = 'azel'
